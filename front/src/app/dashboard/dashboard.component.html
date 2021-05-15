@@ -1,37 +1,35 @@
 <div class="container" *ngIf="incidents && incidents.length >0">
   <div class="main-select">
-    <select [(ngModel)]="model" #inc (ngModelChange)="setIncident(inc.value)" class="form-select">
-      <option *ngFor="let incident of incidents" [value]="incident.id" >
-        {{incident.name}}
+    <select [(ngModel)]="model" (ngModelChange)="setIncident()" class="form-select">
+      <option *ngFor="let inc of incidents" [value]="inc.id" >
+        {{inc.name}}
       </option>
     </select>
   </div>
-
-  <div class="header-box" *ngIf="model">
+  <div class="header-box" *ngIf="selectedIncident">
     <div class="select-box">
       <span>Priority:</span>
-      <select [ngModel]="model"  (change)="onEntityChange($event.target.value,'priority')" class="form-select">
-        <option [value]="model" *ngFor="let entity of getModelDef('priorities',model.priority)">
-          {{entity}}
-        </option>
-      </select>
-    </div>
-
-    <div class="select-box">
-      <span>Status:</span>
-      <select [ngModel]="model" (change)="onEntityChange($event.target.value,'status')" class="form-select">
-        <option [value]="model"  *ngFor="let entity of getModelDef('statuses',model.status)">
+      <select [(ngModel)]="selectedIncident.priority" (change)="onEntityChange()" class="form-select">
+        <option  *ngFor="let entity of getModelDef('priorities',selectedIncident.priority)">
           {{entity}}
         </option>
       </select>
     </div>
     <div class="select-box">
-      <span>Country:</span>
-      <select  [ngModel]="model" (change)="onEntityChange($event.target.value,'country')" class="form-select">
-        <option [value]="model"  *ngFor="let entity of getModelDef('countries',model.country)">
+      <span>Priority:</span>
+      <select [(ngModel)]="selectedIncident.status" (change)="onEntityChange()" class="form-select">
+        <option  *ngFor="let entity of getModelDef('statuses',selectedIncident.status)">
           {{entity}}
         </option>
       </select>
     </div>
-  </div>
+    <div class="select-box">
+      <span>Priority:</span>
+      <select [(ngModel)]="selectedIncident.country" (change)="onEntityChange()" class="form-select">
+        <option  *ngFor="let entity of getModelDef('countries',selectedIncident.country)">
+          {{entity}}
+        </option>
+      </select>
+    </div>
 </div>
+

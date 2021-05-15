@@ -10,8 +10,9 @@ import { incDefinitions } from '../consts/dashboard';
 })
 export class DashboardComponent implements OnInit {
   incidents: IrIncident[];
-  model: IrIncident;
+  selectedIncident: IrIncident;
   definitions = incDefinitions;
+  model: number;
 
   constructor(
     private apiService: ApiServiceService
@@ -23,19 +24,20 @@ export class DashboardComponent implements OnInit {
   getIncidents(){
     this.apiService.getIncidents().subscribe((res) => {
       this.incidents = res.data;
-      this.setIncident(this.incidents[0]);
+      this.model = this.incidents[0].id;
+      this.setIncident();
+
     }, error => {console.log( error ); } );
   }
 
-  setIncident(incident){
-    this.model = this.incidents.find(inc => inc.id === Number(incident));
+  setIncident(){
+    this.selectedIncident = this.incidents.find(inc => inc.id === Number(this.model));
   }
   getModelDef(type: string , value: string){
     const values = [];
     return values.concat(value, this.definitions[type].filter(d => d !== value));
   }
-  onEntityChange(event, entity: string){
-    this.model[entity] = event;
+  onEntityChange(){
     // this.apiService.updateIncident()
   }
 }
