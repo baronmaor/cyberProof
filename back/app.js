@@ -18,7 +18,7 @@ const corsOptions = {
 
 
 app.use(bodyParser.json());
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 
 app.listen(process.env.PORT, () => {
