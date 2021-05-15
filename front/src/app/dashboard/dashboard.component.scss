@@ -1,0 +1,18 @@
+@import "../../styles";
+
+
+.container{
+  .main-select{
+    select{
+      width: 200px;
+    }
+  }
+  .header-box{
+    @include flexBoxRowWrap;
+    .select-box{
+      select{
+        min-width: 200px;
+      }
+    }
+  }
+}

@@ -1,6 +1,37 @@
-<div class="container">
+<div class="container" *ngIf="incidents && incidents.length >0">
+  <div class="main-select">
+    <select [(ngModel)]="model" #inc (ngModelChange)="setIncident(inc.value)" class="form-select">
+      <option *ngFor="let incident of incidents" [value]="incident.id" >
+        {{incident.name}}
+      </option>
+    </select>
+  </div>
 
+  <div class="header-box" *ngIf="model">
+    <div class="select-box">
+      <span>Priority:</span>
+      <select [ngModel]="model"  (change)="onEntityChange($event.target.value,'priority')" class="form-select">
+        <option [value]="model" *ngFor="let entity of getModelDef('priorities',model.priority)">
+          {{entity}}
+        </option>
+      </select>
+    </div>
 
-
-
+    <div class="select-box">
+      <span>Status:</span>
+      <select [ngModel]="model" (change)="onEntityChange($event.target.value,'status')" class="form-select">
+        <option [value]="model"  *ngFor="let entity of getModelDef('statuses',model.status)">
+          {{entity}}
+        </option>
+      </select>
+    </div>
+    <div class="select-box">
+      <span>Country:</span>
+      <select  [ngModel]="model" (change)="onEntityChange($event.target.value,'country')" class="form-select">
+        <option [value]="model"  *ngFor="let entity of getModelDef('countries',model.country)">
+          {{entity}}
+        </option>
+      </select>
+    </div>
+  </div>
 </div>
